@@ -1,3 +1,4 @@
+'use strict';
 const formLogin = document.querySelector('.login-form');
 
 const sendUserInfo = (event) => {
