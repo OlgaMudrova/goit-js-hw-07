@@ -1,6 +1,4 @@
-'use strict';
 const formLogin = document.querySelector('.login-form');
-
 const sendUserInfo = (event) => {
     event.preventDefault();
     const form = event.target;

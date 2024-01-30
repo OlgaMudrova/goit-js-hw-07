@@ -1,5 +1,3 @@
-'use strict';
-
 const images = [
   {
     url: 'https://images.pexels.com/photos/140134/pexels-photo-140134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
@@ -27,15 +25,11 @@ const images = [
   },
 ];
 
-document.body.querySelector('.gallery').append(
-  ...images.map(el => {
-    const li = document.createElement('li');
-    const img = document.createElement('img');
-    
-    li.appendChild(img);
-    img.src = el.url;
-    img.alt = el.alt;
-    img.width = '200';
-    return li;
-  })
-);
+const gallery = document.querySelector('.gallery');
+
+const template = images.map(({ url, alt }) => `<li>
+        <img src="${url}" alt="${alt}" width='400'>
+      </li>`
+).join('');
+
+gallery.insertAdjacentHTML("beforeend", template);
