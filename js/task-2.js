@@ -25,11 +25,19 @@ const images = [
   },
 ];
 
-const gallery = document.querySelector('.gallery');
+const ulElem = document.querySelector('.gallery');
 
-const template = images.map(({ url, alt }) => `<li>
-        <img src="${url}" alt="${alt}" width='400'>
-      </li>`
-).join('');
+const imagesArr = images.map(({ url, alt }) => {
+  const liElem = document.createElement('li');
+  liElem.classList.add('gallery-item');
 
-gallery.insertAdjacentHTML("beforeend", template);
+  const imgElem = document.createElement('img');
+  imgElem.src = url;
+  imgElem.alt = alt;
+  imgElem.classList.add('gallery-image');
+  liElem.append(imgElem);
+
+  return liElem;
+});
+
+ulElem.append(...imagesArr);

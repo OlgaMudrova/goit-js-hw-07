@@ -1,45 +1,36 @@
-const numberValue = document.querySelector('input[type="number"]');
-const buttonCreate = document.querySelector('button[data-create]');
-const buttonDestroy = document.querySelector('button[data-destroy]');
-const boxes = document.querySelector('#boxes');
-
-buttonCreate.addEventListener('click', () => {
-  const amount = numberValue.value;
-  const valueMax = Number(numberValue.max);
-  const valueMin = Number(numberValue.min);
-
-  
-  if (amount >= valueMin && amount <= valueMax) {
-    createBoxes(amount);
-  }
-
-
-  numberValue.value = '';
-});
-
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215)
     .toString(16)
     .padStart(6, 0)}`;
 }
 
+const numberInput = document.querySelector('input');
+const dataCreateButton = document.querySelector('[data-create]');
+const dataDestroyButton = document.querySelector('[data-destroy]');
+const boxesDiv = document.querySelector('#boxes');
+
 function createBoxes(amount) {
-  boxes.innerHTML = '';
-  const boxesItems = [];
-  let boxSize = 30;
-  for (let i = 1; i <= amount; i += 1) {
-
-    let div = document.createElement('div');
-    div.style.backgroundColor = getRandomHexColor();
-    div.style.width = `${boxSize}px`;
-    div.style.height = `${boxSize}px`;
-    boxesItems.push(div);
-
-    boxSize += 10;
+  const numAmount = parseInt(amount);
+  if (numAmount >= 1 && numAmount <= 100) {
+    destroyBoxes();
+    let size = 30;
+    for (let i = 0; i < amount; i++) {
+      const box = document.createElement('div');
+      box.style.width = `${size}px`;
+      box.style.height = `${size}px`;
+      box.style.backgroundColor = getRandomHexColor();
+      boxesDiv.appendChild(box);
+      size += 10;
+    }
+    numberInput.value = '';
   }
-  boxes.append(...boxesItems);
 }
 
-const destroyBoxes = () => boxes.innerHTML = '';
+function destroyBoxes() {
+  boxesDiv.innerHTML = '';
+}
 
-buttonDestroy.addEventListener('click', destroyBoxes);
+dataCreateButton.addEventListener('click', () =>
+  createBoxes(numberInput.value)
+);
+dataDestroyButton.addEventListener('click', destroyBoxes);
